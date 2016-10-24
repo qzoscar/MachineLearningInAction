@@ -1,5 +1,8 @@
+# -*- coding:utf-8 -*-
 from math import log
 
+
+# 计算熵的函数
 def calcShannonEnt(dataSet):
     data_size = len(dataSet)
     labelCounts = {}
@@ -18,5 +21,25 @@ def calcShannonEnt(dataSet):
 def splitDataSet(dataSet,axis,value):
     retDataSet=[]
     for vec in dataSet:
-        if vec[axis] = value:
+        if vec[axis] == value:
+            reducedFeatVec = vec[:axis]
+            reducedFeatVec.extend(vec[axis+1:])
+            retDataSet.append(reducedFeatVec)
+    return retDataSet
+
+
+def chooseBestFeatureToSplit(dataSet):
+    numFeatures = len(dataSet[0])-1
+    baseEntropy = calcShannonEnt(dataSet)
+    bestInfoGain = 0.0
+    bestFeature = -1
+    for i in range(numFeatures):
+        featList = [example[i] for example in dataSet] # 取出数据集的第i列
+        uniqueVals = set(featList) # 第i列数值集合
+        newEntropy = 0.0
+        for value in uniqueVals:
+            subDataSet = splitDataSet(dataSet, i, value)
+
+
+
             
